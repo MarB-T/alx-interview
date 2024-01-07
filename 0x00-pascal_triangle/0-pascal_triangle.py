@@ -4,6 +4,7 @@
 
 
 def pascal_triangle(n):
+    '''function to implement pascal triangle'''
     arrays = []
     for i in range(n):
         inner_list = []
