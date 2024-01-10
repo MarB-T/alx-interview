@@ -1,19 +1,21 @@
 #!/usr/bin/python3
-
 """
-Find if all th 'boxes' can be unlocked
+function to check if all boxes can be unlocked
 """
 
 
 def canUnlockAll(boxes):
     """function to check if all boxes unlock"""
-    if len(boxes) == 0:
+    if not boxes or not isinstance(boxes, list):
         return False
-    all_index = set(list(range(len(boxes))))
-    keys = {0}
-    keys.update(boxes[0])
-    for _ in range(3):
-        for i in range(len(boxes)):
-            if i in keys:
-                keys.update(boxes[i])
-    return (keys == all_index)
+
+    unlocked_boxes = [0]
+    keys = list(boxes[0])
+
+    while keys:
+        key = keys.pop()
+        if key < len(boxes) and key not in unlocked_boxes:
+            unlocked_boxes.append(key)
+            keys.extend(boxes[key])
+
+    return len(unlocked_boxes) == len(boxes)
