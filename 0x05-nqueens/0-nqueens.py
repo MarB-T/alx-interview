@@ -11,7 +11,7 @@ def is_safe(board, row, col, n):
            board[i] - i == col - row or \
            board[i] + i == col + row:
             return False
-    return True
+    return False
 
 
 def print_solution(board):
