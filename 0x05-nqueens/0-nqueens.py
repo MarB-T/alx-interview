@@ -49,4 +49,4 @@ if __name__ == "__main__":
         print("Usage: nqueens N")
         sys.exit(1)
 
-    nqueens(sys.argv[1]) 
+    nqueens(sys.argv[1])
