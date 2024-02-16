@@ -1,21 +1,32 @@
 #!/usr/bin/node
-const argv = process.argv[2];
+const arg = process.argv[2];
 const urlFilm = 'https://swapi-api.alx-tools.com/api/films/';
 const url = `${urlFilm}${argv}/`;
 
-const req = require('request');
-const util = require('util');
-const request = util.promisify(req);
 
-async function star (url) {
-  const body = await (await request(url)).body;
-  const pot = JSON.parse(body);
-  const people = pot.characters;
-  for (const character of people) {
-    const bod = await (await request(character)).body;
-    const person = JSON.parse(bod);
-    console.log(person.name);
+async function retPro (url) {
+  return new Promise(function (resolve, reject) {
+    request(url, function (err, res, body) {
+      resolve(JSON.parse(body).name);
+      if (err) throw err;
+    });
+  });
+}
+
+async function chars () {
+  return new Promise(function (resolve, reject) {
+    request(url, function (err, res, bod) {
+      resolve(JSON.parse(bod).characters);
+      if (err) throw err;
+    });
+  });
+}
+
+async function names () {
+  const thischars = await chars();
+  for (let i = 0; i < thischars.length; i++) {
+    console.log(await retPro(thischars[i]));
   }
 }
 
-star(url);
+names();
